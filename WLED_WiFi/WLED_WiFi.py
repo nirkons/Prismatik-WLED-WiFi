@@ -38,11 +38,10 @@ class WLED_WiFi:
                     v.append(d[i][0])
                     v.append(d[i][1])
                     v.append(d[i][2])
-                if (counter == len(d)):
-                    for x in range(14):
-                        v.append(d[i][0])
-                        v.append(d[i][1])
-                        v.append(d[i][2])
+                if (counter % 9) == 0:
+                    v.append(d[i][0])
+                    v.append(d[i][1])
+                    v.append(d[i][2])
                 counter = counter + 1
                 """if counter == (half):
                     for x in range(int(leddiff/2)):
