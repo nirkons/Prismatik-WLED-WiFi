@@ -1,5 +1,6 @@
 # Prismatik WLED-WiFi plugin
 Ambilight via WiFi. Prismatik plugin to support WLED
+* Made a few changes to support my larger WLED number of LEDs
 
 ## Dependencies
 * [WLED](https://github.com/Aircoookie/WLED/releases/tag/v0.8.6 "WLED") for ESP8266/ESP32 (checked for 0.8.6)
