@@ -20,8 +20,13 @@ class WLED_WiFi:
         self.fps = self.config.getint('WLED', 'FPS')
         self.udpBroadcastIp = self.config.get('WLED', 'UDP_IP_ADDRESS')
         self.udpPort = self.config.getint('WLED', 'UDP_PORT_NO')
+        self.originnumled = self.config.getint('WLED', 'ORIGINNUMLED')
+        self.numled = self.config.getint('WLED', 'NUMLED')
 
     def run(self):
+        counter = 0
+        leddiff=abs(self.numled-self.originnumled)
+        half = int(round(self.originnumled/2))
         while(True):
             d = self.lp.getColoursFromAll()
             v = [2, 2]
@@ -29,6 +34,27 @@ class WLED_WiFi:
                 v.append(d[i][0])
                 v.append(d[i][1])
                 v.append(d[i][2])
+                if (counter % 2) == 0:
+                    v.append(d[i][0])
+                    v.append(d[i][1])
+                    v.append(d[i][2])
+                if (counter == len(d)):
+                    for x in range(14):
+                        v.append(d[i][0])
+                        v.append(d[i][1])
+                        v.append(d[i][2])
+                counter = counter + 1
+                """if counter == (half):
+                    for x in range(int(leddiff/2)):
+                        v.append(d[i][0])
+                        v.append(d[i][1])
+                        v.append(d[i][2])
+                        counter = counter + 1
+                else:
+                    counter = counter + 1
+                """
+                if counter == (self.numled-1):
+                        counter = 0
             Message = bytes(v)
             clientSock = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
             clientSock.sendto (Message, (self.udpBroadcastIp, self.udpPort))
